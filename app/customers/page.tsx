@@ -25,7 +25,7 @@ export default function CustomersPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterState, setFilterState] = useState("");
+  const [filterState, setFilterState] = useState("all");
   const [newCustomer, setNewCustomer] = useState<Partial<Customer>>({
     name: "",
     contact_name: "",
@@ -80,7 +80,7 @@ export default function CustomersPage() {
         customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
         customer.phone.includes(searchTerm);
         
-      const matchesState = !filterState || customer.state === filterState;
+      const matchesState = filterState === "all" || customer.state === filterState;
         
       return matchesSearch && matchesState;
     });
@@ -207,7 +207,7 @@ export default function CustomersPage() {
   // Resetear filtros
   const resetFilters = () => {
     setSearchTerm("");
-    setFilterState("");
+    setFilterState("all");
   };
 
   return (
@@ -284,7 +284,7 @@ export default function CustomersPage() {
           title="Editar cliente"
           description="Actualiza la información del cliente."
           customer={customerToEdit}
-          setCustomer={setCustomerToEdit}
+          setCustomer={(customer) => setCustomerToEdit({...customerToEdit, ...customer})}
           onSubmit={handleEditCustomer}
           isSubmitting={isSubmitting}
           submitLabel="Guardar cambios"

@@ -46,7 +46,7 @@ export const FilterBar = ({
             </div>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="">Todos los estados</SelectItem>
+            <SelectItem value="all">Todos los estados</SelectItem>
             {customerStates.map(state => (
               <SelectItem key={state} value={state}>{state}</SelectItem>
             ))}
